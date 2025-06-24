@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire identité</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: #fefefe;
+        }
+        input {
+            padding: 8px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0099cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .resultat {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Entre ton nom et prénom</h1>
+    <input type="text" id="prenom" placeholder="Prénom">
+    <input type="text" id="nom" placeholder="Nom">
+    <br>
+    <button onclick="afficher()">Afficher</button>
+
+    <div class="resultat" id="resultat"></div>
+
+    <script>
+        function afficher() {
+            const prenom = document.getElementById('prenom').value;
+            const nom = document.getElementById('nom').value;
+            document.getElementById('resultat').innerHTML = `
+                Bonjour <strong>${prenom} ${nom}</strong> !
+            `;
+        }
+    </script>
+</body>
+</html>
+
+
