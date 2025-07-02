@@ -2,12 +2,65 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ma fiche d'identité</title>
+    <title>Portfolio Cybersécurité - Louis LOGEZ</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Ma fiche d'identité</h1>
-    <p><strong>Prénom :</strong> Louis</p>
-    <p><strong>Nom :</strong> LOGEZ</p>
+    <div class="cyber-bg">
+        <header>
+            <div class="profile-pic">
+                <img src="https://www.svgrepo.com/show/452030/avatar-default.svg" alt="Avatar Louis LOGEZ">
+            </div>
+            <h1>Louis LOGEZ</h1>
+            <h2>Étudiant en Cybersécurité</h2>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section id="about">
+                <h3>À propos de moi</h3>
+                <p>Passionné par la cybersécurité, je suis étudiant en BTS SIO option SISR. J'aime relever les défis techniques et protéger les systèmes d'information.</p>
+            </section>
+            <section id="skills">
+                <h3>Compétences</h3>
+                <ul class="skills-list">
+                    <li>Analyse de vulnérabilités</li>
+                    <li>Pentest</li>
+                    <li>Gestion des incidents</li>
+                    <li>Linux & Windows Server</li>
+                    <li>Programmation Python, Bash</li>
+                </ul>
+            </section>
+            <section id="projects">
+                <h3>Projets</h3>
+                <div class="project-card">
+                    <h4>Audit de sécurité d'un réseau</h4>
+                    <p>Réalisation d'un audit complet sur un réseau d'entreprise fictif, détection de failles et recommandations.</p>
+                </div>
+                <div class="project-card">
+                    <h4>Script d'automatisation de sauvegarde</h4>
+                    <p>Développement d'un script Bash pour automatiser la sauvegarde sécurisée de données sensibles.</p>
+                </div>
+            </section>
+            <section id="contact">
+                <h3>Contact</h3>
+                <form class="contact-form">
+                    <input type="text" placeholder="Votre nom" required>
+                    <input type="email" placeholder="Votre email" required>
+                    <textarea placeholder="Votre message" required></textarea>
+                    <button type="submit">Envoyer</button>
+                </form>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Louis LOGEZ - Portfolio Cybersécurité</p>
+        </footer>
+    </div>
 </body>
 </html>
