@@ -1,3 +1,265 @@
+/* Header principal */
+.header-main {
+    background: linear-gradient(120deg, #0a192f 80%, #00ffe7 180%);
+    box-shadow: 0 4px 32px #00ffe744;
+    border-radius: 0 0 32px 32px;
+    padding: 48px 0 36px 0;
+    margin-bottom: 0;
+    position: relative;
+}
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+.header-desc {
+    color: #e6f1ff;
+    font-size: 1.2em;
+    margin: 0 0 10px 0;
+}
+.header-links {
+    display: flex;
+    gap: 18px;
+    margin-top: 10px;
+}
+.btn-main, .btn-secondary {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.btn-main {
+    background: #00ffe7;
+    color: #0a192f;
+    box-shadow: 0 0 10px #00ffe7bb;
+}
+.btn-main:hover {
+    background: #64ffda;
+    color: #0a192f;
+}
+.btn-secondary {
+    background: transparent;
+    color: #00ffe7;
+    border: 2px solid #00ffe7;
+}
+.btn-secondary:hover {
+    background: #00ffe7;
+    color: #0a192f;
+}
+
+@media (max-width: 900px) {
+    .header-content {
+        flex-direction: column;
+        gap: 18px;
+    }
+    .header-main {
+        padding: 32px 0 24px 0;
+        border-radius: 0 0 18px 18px;
+    }
+}
+
+/* Listes et contenus supplémentaires */
+.about-list, .certif-list, .veille-list {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0 0;
+    color: #64ffda;
+    font-size: 1.1em;
+}
+.about-list li, .certif-list li, .veille-list li {
+    margin-bottom: 8px;
+}
+.band-content {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.band-content a {
+    color: #00ffe7;
+    text-decoration: underline;
+}
+.band-content a:hover {
+    color: #64ffda;
+}
+
+/* Liens de contact */
+.contact-links {
+    display: flex;
+    gap: 18px;
+    margin-top: 18px;
+}
+.contact-link img {
+    filter: drop-shadow(0 0 6px #00ffe7aa);
+    border-radius: 50%;
+    background: #112240;
+    padding: 4px;
+    transition: background 0.2s, filter 0.2s;
+}
+.contact-link img:hover {
+    background: #00ffe7;
+    filter: drop-shadow(0 0 12px #00ffe7);
+}
+/* Bandes pleine largeur pour chaque section */
+.band {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background: #16213a;
+    box-shadow: 0 4px 32px #00ffe722;
+    border-radius: 0 0 32px 32px;
+    padding: 48px 0 36px 0;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.band h2 {
+    color: #00ffe7;
+    font-size: 2em;
+    margin-bottom: 18px;
+    border-left: 5px solid #00ffe7;
+    padding-left: 14px;
+    letter-spacing: 1px;
+}
+.band ul.skills-list {
+    margin-top: 0;
+    margin-bottom: 0;
+    justify-content: center;
+}
+.band .project-card {
+    margin-bottom: 18px;
+}
+.band:last-child {
+    margin-bottom: 0;
+}
+.band form.contact-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+@media (max-width: 900px) {
+    .band {
+        padding: 32px 0 24px 0;
+        border-radius: 0 0 18px 18px;
+    }
+    .band h2 {
+        font-size: 1.3em;
+    }
+}
+/* Barre d'interaction */
+.interaction-bar {
+    width: 100%;
+    background: linear-gradient(90deg, #0a192f 70%, #00ffe7 120%);
+    box-shadow: 0 2px 16px #00ffe744;
+    margin-bottom: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.interaction-bar ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 56px;
+}
+.interaction-bar li {
+    display: flex;
+    align-items: center;
+}
+.interaction-bar a {
+    color: #e6f1ff;
+    font-size: 1.15em;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.interaction-bar a:hover, .interaction-bar a:focus {
+    background: #00ffe7;
+    color: #0a192f;
+    box-shadow: 0 0 10px #00ffe7bb;
+}
+.blocks-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.block {
+    background: #1a263a;
+    border-radius: 18px;
+    box-shadow: 0 0 18px #00ffe733;
+    padding: 32px 28px 24px 28px;
+    min-width: 260px;
+    max-width: 350px;
+    flex: 1 1 320px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.block:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 0 32px #00ffe7bb;
+}
+.block h2 {
+    color: #00ffe7;
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 1.5em;
+    border-left: 4px solid #00ffe7;
+    padding-left: 10px;
+    letter-spacing: 1px;
+}
+.block ul.skills-list {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.block .project-card {
+    margin-bottom: 14px;
+}
+.block:last-child {
+    margin-bottom: 0;
+}
+.block form.contact-form {
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .blocks-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+    .block {
+        max-width: 95vw;
+        width: 100%;
+    }
+}
 
 body {
     margin: 0;
@@ -8,9 +270,49 @@ body {
 
 .cyber-bg {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0a192f 60%, #112240 100%);
-    box-shadow: 0 0 40px #00ffe7 inset;
+    background:
+        repeating-linear-gradient(135deg, #fafdff 0 2px, #d0f1ff 2px 40px),
+        linear-gradient(120deg, #fafdff 60%, #d0f1ff 100%),
+        url('https://www.transparenttextures.com/patterns/hexellence.png'); /* motif hexagone cybersécurité */
+    box-shadow: 0 0 60px #00b4d8 inset;
     padding-bottom: 40px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Ajout d'éléments décoratifs Marine Nationale & réseau */
+.cyber-bg::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    /* Drapeau tricolore en haut à gauche */
+    background: linear-gradient(90deg, #002654 0 33%, #fff 33% 66%, #ce1126 66% 100%);
+    width: 120px;
+    height: 24px;
+    border-radius: 0 0 16px 0;
+    box-shadow: 0 4px 24px #00265444;
+    opacity: 0.85;
+}
+.cyber-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; right: 40px;
+    width: 180px;
+    height: 180px;
+    background: url('https://cdn-icons-png.flaticon.com/512/3079/3079047.png') no-repeat center/contain;
+    opacity: 0.10;
+    z-index: 0;
+    /* Ancre Marine Nationale stylisée */
+}
+
+/* Réseau : lignes et points animés */
+.network-lines {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 1;
 }
 
 header {
@@ -102,16 +404,16 @@ h3 {
 }
 
 .project-card {
-    background: #233554;
-    border-left: 4px solid #00ffe7;
+    background: #b3e0ff;
+    border-left: 4px solid #00b4d8;
     margin-bottom: 18px;
     padding: 15px 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px #00ffe744;
+    box-shadow: 0 0 10px #00b4d844;
 }
 .project-card h4 {
     margin: 0 0 5px 0;
-    color: #64ffda;
+    color: #0077b6;
 }
 
 .contact-form {
@@ -121,17 +423,17 @@ h3 {
 }
 .contact-form input,
 .contact-form textarea {
-    background: #0a192f;
-    border: 1.5px solid #00ffe7;
-    color: #e6f1ff;
+    background: #e3f6ff;
+    border: 1.5px solid #00b4d8;
+    color: #0a192f;
     border-radius: 6px;
     padding: 10px;
     font-size: 1em;
     resize: none;
 }
 .contact-form button {
-    background: linear-gradient(90deg, #00ffe7, #64ffda);
-    color: #0a192f;
+    background: linear-gradient(90deg, #00b4d8, #48cae4);
+    color: #fff;
     border: none;
     border-radius: 6px;
     padding: 10px 0;
@@ -141,7 +443,7 @@ h3 {
     transition: background 0.2s;
 }
 .contact-form button:hover {
-    background: linear-gradient(90deg, #64ffda, #00ffe7);
+    background: linear-gradient(90deg, #48cae4, #00b4d8);
 }
 
 footer {

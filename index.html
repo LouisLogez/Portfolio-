@@ -2,60 +2,129 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio Cybersécurité - Louis LOGEZ</title>
+    <title>Portfolio - Louis LOGEZ</title>
     <link rel="stylesheet" href="style.css">
+    <script src="network.js" defer></script>
 </head>
 <body>
     <div class="cyber-bg">
-        <header>
-            <div class="profile-pic">
-                <img src="https://www.svgrepo.com/show/452030/avatar-default.svg" alt="Avatar Louis LOGEZ">
+        <canvas class="network-lines"></canvas>
+        <header class="header-main">
+            <div class="header-content">
+                <div class="profile-pic">
+                    <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" width="200" height="200" style="object-fit: cover; image-rendering: auto;">
+                </div>
+                <div class="header-text">
+                    <h1>Louis LOGEZ</h1>
+                    <h2>Étudiant en BTS SIO option SISR</h2>
+                    <p class="header-desc">Passionné par la cybersécurité, je souhaite intégrer la Marine Nationale et me spécialiser dans la sécurité informatique.</p>
+                    <div class="header-links">
+                        <a href="#contact" class="btn-main">Me contacter</a>
+                        <a href="#projects" class="btn-secondary">Voir mes projets</a>
+                    </div>
+                </div>
             </div>
-            <h1>Louis LOGEZ</h1>
-            <h2>Étudiant en Cybersécurité</h2>
         </header>
-        <nav>
+        <nav class="interaction-bar">
             <ul>
                 <li><a href="#about">À propos</a></li>
+                <li><a href="#objectif">Objectif</a></li>
                 <li><a href="#skills">Compétences</a></li>
+                <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#projects">Projets</a></li>
+                <li><a href="#veille">Veille</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
         <main>
-            <section id="about">
-                <h3>À propos de moi</h3>
-                <p>Passionné par la cybersécurité, je suis étudiant en BTS SIO option SISR. J'aime relever les défis techniques et protéger les systèmes d'information.</p>
-            </section>
-            <section id="skills">
-                <h3>Compétences</h3>
-                <ul class="skills-list">
-                    <li>Analyse de vulnérabilités</li>
-                    <li>Pentest</li>
-                    <li>Gestion des incidents</li>
-                    <li>Linux & Windows Server</li>
-                    <li>Programmation Python, Bash</li>
-                </ul>
-            </section>
-            <section id="projects">
-                <h3>Projets</h3>
-                <div class="project-card">
-                    <h4>Audit de sécurité d'un réseau</h4>
-                    <p>Réalisation d'un audit complet sur un réseau d'entreprise fictif, détection de failles et recommandations.</p>
-                </div>
-                <div class="project-card">
-                    <h4>Script d'automatisation de sauvegarde</h4>
-                    <p>Développement d'un script Bash pour automatiser la sauvegarde sécurisée de données sensibles.</p>
+            <section class="band" id="about">
+                <h2>À propos de moi</h2>
+                <div class="band-content">
+                    <p>Je m'appelle Louis LOGEZ, étudiant en BTS SIO option SISR. Ma vocation pour la cybersécurité a été confortée par ma participation à une Préparation Militaire Marine (PMM) en 2024. J'aime relever les défis techniques, apprendre en continu et protéger les systèmes d'information.</p>
+                    <ul class="about-list">
+                        <li><strong>Âge :</strong> 20 ans</li>
+                        <li><strong>Ville :</strong> Dunkerque</li>
+                        <li><strong>Permis :</strong> B</li>
+                        <li><strong>Langues :</strong> Français (natif), Anglais (intermédiaire)</li>
+                    </ul>
                 </div>
             </section>
-            <section id="contact">
-                <h3>Contact</h3>
-                <form class="contact-form">
-                    <input type="text" placeholder="Votre nom" required>
-                    <input type="email" placeholder="Votre email" required>
-                    <textarea placeholder="Votre message" required></textarea>
-                    <button type="submit">Envoyer</button>
-                </form>
+            <section class="band" id="objectif">
+                <h2>Objectif professionnel</h2>
+                <div class="band-content">
+                    <p>Intégrer la Marine Nationale après mon BTS pour faire l’école de Maistrance puis me former dans la cybersécurité. Mon ambition est de devenir expert en sécurité des systèmes d'information et de contribuer à la défense numérique de la France.</p>
+                </div>
+            </section>
+            <section class="band" id="skills">
+                <h2>Compétences techniques</h2>
+                <div class="band-content">
+                    <ul class="skills-list">
+                        <li>Analyse de vulnérabilités</li>
+                        <li>Pentest (tests d'intrusion)</li>
+                        <li>Gestion des incidents</li>
+                        <li>Linux & Windows Server</li>
+                        <li>Programmation Python, Bash</li>
+                        <li>Virtualisation (VMware, VirtualBox)</li>
+                        <li>Réseaux (TCP/IP, VLAN, Firewall)</li>
+                        <li>Gestion Active Directory</li>
+                        <li>Outils SIEM (Wazuh, Splunk)</li>
+                    </ul>
+                </div>
+            </section>
+            <section class="band" id="certifications">
+                <h2>Certifications & Formations</h2>
+                <div class="band-content">
+                    <ul class="certif-list">
+                        <li>Préparation Militaire Marine (PMM) - 2024</li>
+                        <li>Certification PIX (compétences numériques)</li>
+                        <li>Formation OpenClassrooms : Sécurité informatique</li>
+                        <li>MOOC ANSSI : Sensibilisation à la cybersécurité</li>
+                    </ul>
+                </div>
+            </section>
+            <section class="band" id="projects">
+                <h2>Projets réalisés</h2>
+                <div class="band-content">
+                    <div class="project-card">
+                        <h4>Audit de sécurité d'un réseau</h4>
+                        <p>Réalisation d'un audit complet sur un réseau d'entreprise fictif, détection de failles et recommandations.</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>Script d'automatisation de sauvegarde</h4>
+                        <p>Développement d'un script Bash pour automatiser la sauvegarde sécurisée de données sensibles.</p>
+                    </div>
+                    <div class="project-card">
+                        <h4>Déploiement d'un serveur web sécurisé</h4>
+                        <p>Installation, configuration et sécurisation d'un serveur Apache sous Linux, avec HTTPS et monitoring.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="band" id="veille">
+                <h2>Veille technologique</h2>
+                <div class="band-content">
+                    <p>Je m'informe régulièrement sur les dernières menaces, vulnérabilités et innovations en cybersécurité via :</p>
+                    <ul class="veille-list">
+                        <li>Sites spécialisés : <a href="https://www.cert.ssi.gouv.fr/" target="_blank">CERT-FR</a>, <a href="https://www.zataz.com/" target="_blank">Zataz</a>, <a href="https://www.undernews.fr/" target="_blank">UnderNews</a></li>
+                        <li>Podcasts : NoLimitSecu, Cybersecurity Podcast</li>
+                        <li>Réseaux sociaux : LinkedIn, Twitter (X)</li>
+                    </ul>
+                </div>
+            </section>
+            <section class="band" id="contact">
+                <h2>Contact</h2>
+                <div class="band-content">
+                    <form class="contact-form">
+                        <input type="text" placeholder="Votre nom" required>
+                        <input type="email" placeholder="Votre email" required>
+                        <textarea placeholder="Votre message" required></textarea>
+                        <button type="submit">Envoyer</button>
+                    </form>
+                    <div class="contact-links">
+                        <a href="mailto:louis.logez@email.com" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Mail" width="28"></a>
+                        <a href="https://www.linkedin.com/" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="28"></a>
+                        <a href="https://github.com/" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="28"></a>
+                    </div>
+                </div>
             </section>
         </main>
         <footer>
