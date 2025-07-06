@@ -4,125 +4,122 @@
     <meta charset="UTF-8">
     <title>Portfolio - Louis LOGEZ</title>
     <link rel="stylesheet" href="style.css">
-    <script src="network.js" defer></script>
+    <script src="matrix.js" defer></script>
 </head>
 <body>
-    <div class="cyber-bg">
-        <canvas class="network-lines"></canvas>
+    <div class="matrix-bg">
+        <canvas id="matrix-canvas"></canvas>
         <header class="header-main">
             <div class="header-content">
                 <div class="profile-pic">
-                    <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" width="200" height="200" style="object-fit: cover; image-rendering: auto;">
+                    <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" width="180" height="180" style="object-fit: cover; image-rendering: auto;">
                 </div>
                 <div class="header-text">
                     <h1>Louis LOGEZ</h1>
-                    <h2>Étudiant en BTS SIO option SISR</h2>
-                    <p class="header-desc">Passionné par la cybersécurité, je souhaite intégrer la Marine Nationale et me spécialiser dans la sécurité informatique.</p>
+                    <h2>Futur spécialiste cybersécurité & réseaux</h2>
+                    <p class="header-desc">Rigoureux, passionné par la sécurité informatique, je vise une carrière dans la Marine Nationale après mon BTS SIO SISR, avec une spécialisation cybersécurité.</p>
                     <div class="header-links">
                         <a href="#contact" class="btn-main">Me contacter</a>
-                        <a href="#projects" class="btn-secondary">Voir mes projets</a>
+                        <a href="#experiences" class="btn-secondary">Voir mon parcours</a>
                     </div>
                 </div>
             </div>
         </header>
         <nav class="interaction-bar">
             <ul>
-                <li><a href="#about">À propos</a></li>
                 <li><a href="#objectif">Objectif</a></li>
-                <li><a href="#skills">Compétences</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#veille">Veille</a></li>
+                <li><a href="#competences-pro">Compétences Pro</a></li>
+                <li><a href="#competences-perso">Compétences Perso</a></li>
+                <li><a href="#formations">Formations</a></li>
+                <li><a href="#experiences">Expériences</a></li>
+                <li><a href="#sport">Sport</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
         <main>
-            <section class="band" id="about">
-                <h2>À propos de moi</h2>
-                <div class="band-content">
-                    <p>Je m'appelle Louis LOGEZ, étudiant en BTS SIO option SISR. Ma vocation pour la cybersécurité a été confortée par ma participation à une Préparation Militaire Marine (PMM) en 2024. J'aime relever les défis techniques, apprendre en continu et protéger les systèmes d'information.</p>
-                    <ul class="about-list">
-                        <li><strong>Âge :</strong> 20 ans</li>
-                        <li><strong>Ville :</strong> Dunkerque</li>
-                        <li><strong>Permis :</strong> B</li>
-                        <li><strong>Langues :</strong> Français (natif), Anglais (intermédiaire)</li>
-                    </ul>
-                </div>
-            </section>
             <section class="band" id="objectif">
                 <h2>Objectif professionnel</h2>
                 <div class="band-content">
-                    <p>Intégrer la Marine Nationale après mon BTS pour faire l’école de Maistrance puis me former dans la cybersécurité. Mon ambition est de devenir expert en sécurité des systèmes d'information et de contribuer à la défense numérique de la France.</p>
+                    <p>Intégrer la Marine Nationale après mon BTS pour faire l’école de Maistrance puis me former dans la cybersécurité.</p>
                 </div>
             </section>
-            <section class="band" id="skills">
-                <h2>Compétences techniques</h2>
+            <section class="band" id="competences-pro">
+                <h2>Compétences professionnelles</h2>
+                <div class="band-content">
+                    <h3>Développement informatique</h3>
+                    <ul class="skills-list">
+                        <li>Modélisation MERISE</li>
+                        <li>Base de données (MySQL)</li>
+                        <li>Python</li>
+                        <li>HTML/CSS</li>
+                    </ul>
+                    <h3>Réseau informatique</h3>
+                    <ul class="skills-list">
+                        <li>Linux (Ubuntu, Fedora, Mint)</li>
+                        <li>VirtualBox</li>
+                        <li>Packet Tracer</li>
+                        <li>Cybersécurité (sécurité des systèmes informatiques)</li>
+                    </ul>
+                </div>
+            </section>
+            <section class="band" id="competences-perso">
+                <h2>Compétences personnelles</h2>
                 <div class="band-content">
                     <ul class="skills-list">
-                        <li>Analyse de vulnérabilités</li>
-                        <li>Pentest (tests d'intrusion)</li>
-                        <li>Gestion des incidents</li>
-                        <li>Linux & Windows Server</li>
-                        <li>Programmation Python, Bash</li>
-                        <li>Virtualisation (VMware, VirtualBox)</li>
-                        <li>Réseaux (TCP/IP, VLAN, Firewall)</li>
-                        <li>Gestion Active Directory</li>
-                        <li>Outils SIEM (Wazuh, Splunk)</li>
+                        <li>Rigoureux</li>
+                        <li>Cohésion de groupe dans la réalisation des projets</li>
+                        <li>Sociable</li>
+                        <li>Empathique et à l’écoute</li>
                     </ul>
                 </div>
             </section>
-            <section class="band" id="certifications">
-                <h2>Certifications & Formations</h2>
+            <section class="band" id="formations">
+                <h2>Formations</h2>
                 <div class="band-content">
                     <ul class="certif-list">
-                        <li>Préparation Militaire Marine (PMM) - 2024</li>
-                        <li>Certification PIX (compétences numériques)</li>
-                        <li>Formation OpenClassrooms : Sécurité informatique</li>
-                        <li>MOOC ANSSI : Sensibilisation à la cybersécurité</li>
+                        <li><strong>Baccalauréat général</strong> — Lycée Lapérouse, Nouméa<br>Spécialités : Mathématiques, NSI. Mention Bien</li>
+                        <li><strong>Diplôme National du Brevet</strong> — Collège Jean Mariotti, Nouméa<br>Mention Très bien</li>
                     </ul>
                 </div>
             </section>
-            <section class="band" id="projects">
-                <h2>Projets réalisés</h2>
+            <section class="band" id="experiences">
+                <h2>Expériences</h2>
                 <div class="band-content">
                     <div class="project-card">
-                        <h4>Audit de sécurité d'un réseau</h4>
-                        <p>Réalisation d'un audit complet sur un réseau d'entreprise fictif, détection de failles et recommandations.</p>
+                        <h4>Préparation Militaire Marine 2024 (PMM)</h4>
+                        <p>Base navale de la Pointe Chaleix - Nouméa<br>Obtention du Permis côtier et du Certificat restreint de radiotéléphoniste du service mobile maritime (CRR).<br><em>Janvier - Février 2024</em></p>
                     </div>
                     <div class="project-card">
-                        <h4>Script d'automatisation de sauvegarde</h4>
-                        <p>Développement d'un script Bash pour automatiser la sauvegarde sécurisée de données sensibles.</p>
+                        <h4>Stage de découverte en milieu professionnel (3ème)</h4>
+                        <p>Geocal - Nouméa<br>Découverte des différents services de l’entreprise : commercial, administratif et technique.<br><em>Juillet 2021</em></p>
                     </div>
                     <div class="project-card">
-                        <h4>Déploiement d'un serveur web sécurisé</h4>
-                        <p>Installation, configuration et sécurisation d'un serveur Apache sous Linux, avec HTTPS et monitoring.</p>
+                        <h4>Certificat de compétences de citoyen de sécurité civile</h4>
+                        <p>Prévention et Secours Civiques (PSC) de niveau 1</p>
                     </div>
                 </div>
             </section>
-            <section class="band" id="veille">
-                <h2>Veille technologique</h2>
+            <section class="band" id="sport">
+                <h2>Pratiques sportives</h2>
                 <div class="band-content">
-                    <p>Je m'informe régulièrement sur les dernières menaces, vulnérabilités et innovations en cybersécurité via :</p>
-                    <ul class="veille-list">
-                        <li>Sites spécialisés : <a href="https://www.cert.ssi.gouv.fr/" target="_blank">CERT-FR</a>, <a href="https://www.zataz.com/" target="_blank">Zataz</a>, <a href="https://www.undernews.fr/" target="_blank">UnderNews</a></li>
-                        <li>Podcasts : NoLimitSecu, Cybersecurity Podcast</li>
-                        <li>Réseaux sociaux : LinkedIn, Twitter (X)</li>
+                    <ul class="skills-list">
+                        <li>Tennis en club (2015-2023)</li>
+                        <li>Basket en club (2024), UNSS au lycée (2022-2024) et loisir</li>
                     </ul>
                 </div>
             </section>
             <section class="band" id="contact">
                 <h2>Contact</h2>
                 <div class="band-content">
-                    <form class="contact-form">
-                        <input type="text" placeholder="Votre nom" required>
-                        <input type="email" placeholder="Votre email" required>
-                        <textarea placeholder="Votre message" required></textarea>
-                        <button type="submit">Envoyer</button>
-                    </form>
+                    <ul class="about-list">
+                        <li><strong>Téléphone :</strong> (+687) 89 16 94</li>
+                        <li><strong>Adresse :</strong> 22 Boulevard Vauban, 98800, Nouméa</li>
+                        <li><strong>Email :</strong> louis.logez2006@gmail.com</li>
+                    </ul>
                     <div class="contact-links">
-                        <a href="mailto:louis.logez@email.com" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Mail" width="28"></a>
-                        <a href="https://www.linkedin.com/" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="28"></a>
-                        <a href="https://github.com/" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="28"></a>
+                        <a href="mailto:louis.logez2006@gmail.com" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" width="28"></a>
+                        <a href="https://www.linkedin.com/in/louis-logez-4b2a11362" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="28"></a>
+                        <a href="https://github.com/LouisLogez" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="28"></a>
                     </div>
                 </div>
             </section>
