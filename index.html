@@ -3,130 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio - Louis LOGEZ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Fira+Sans:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* Matrix plus visible sur l'accueil */
+      #matrix-canvas {
+        opacity: 1 !important;
+        filter: none !important;
+        z-index: 1;
+        pointer-events: none;
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: transparent !important;
+      }
+      .accueil-band {
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        background: transparent;
+        box-shadow: none;
+        border: none;
+      }
+      .accueil-center {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .neon-green {
+        color: #39ff14;
+        text-shadow: 0 0 8px #39ff14, 0 0 24px #39ff14, 0 0 48px #39ff14;
+        font-family: 'Orbitron', 'Fira Sans', 'Roboto', Arial, sans-serif;
+        font-size: 2.8rem;
+        letter-spacing: 2px;
+        text-align: center;
+      }
+      @media (max-width: 900px) {
+        .accueil-band { min-height: 80vh; }
+        .neon-green { font-size: 2rem; }
+      }
+      /* Sidebar onglet actif */
+      .sidebar-nav a.active, .sidebar-nav a:focus {
+        color: #39ff14 !important;
+        text-shadow: 0 0 8px #39ff14, 0 0 24px #39ff14;
+        background: rgba(57,255,20,0.08);
+        border-radius: 8px;
+      }
+      .band:not(.accueil-band) {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 48px 0 48px 0;
+      }
+      .band-content {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .band, .band-content, .project-card, .about-list, .skills-list, .certif-list {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .band h2, .band h3, .band h4, .band p, .band li, .band label, .band input, .band textarea, .band button {
+        color: #eaffd0;
+        text-shadow: 0 0 6px #39ff14, 0 0 2px #111;
+      }
+      .contact-form {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .contact-form input, .contact-form textarea {
+        background: rgba(0,0,0,0.25) !important;
+        color: #fff !important;
+        border: 1.5px solid #39ff14 !important;
+        text-shadow: 0 0 4px #39ff14;
+      }
+      .contact-form button {
+        background: #39ff14 !important;
+        color: #111 !important;
+        box-shadow: 0 0 8px #39ff14, 0 0 24px #39ff14;
+      }
+    </style>
+
     <script src="matrix.js" defer></script>
+    <script src="terminal-lock.js" defer></script>
+
 </head>
 <body>
-    <div class="matrix-bg">
-        <canvas id="matrix-canvas"></canvas>
-        <header class="header-main">
-            <div class="header-content">
-                <div class="profile-pic">
-                    <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" width="180" height="180" style="object-fit: cover; image-rendering: auto;">
-                </div>
-                <div class="header-text">
-                    <h1>Louis LOGEZ</h1>
-                    <h2>Futur spécialiste cybersécurité & réseaux</h2>
-                    <p class="header-desc">Rigoureux, passionné par la sécurité informatique, je vise une carrière dans la Marine Nationale après mon BTS SIO SISR, avec une spécialisation cybersécurité.</p>
-                    <div class="header-links">
-                        <a href="#contact" class="btn-main">Me contacter</a>
-                        <a href="#experiences" class="btn-secondary">Voir mon parcours</a>
-                    </div>
-                </div>
+    <canvas id="matrix-canvas"></canvas>
+    <aside class="sidebar-profile" style="position:fixed;top:0;left:0;height:100vh;width:320px;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(255,0,222,0.82) 0%,rgba(0,234,255,0.82) 100%);backdrop-filter:blur(2px);box-shadow:0 0 32px #ff00de,0 0 24px #00eaff,0 0 2px #222;border-right:3px solid #00eaff;border-left:3px solid #ff00de;border-radius:0 24px 24px 0;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:32px;">
+            <div class="profile-pic" style="border-radius:50%;box-shadow:0 0 16px #ff00de,0 0 12px #00eaff,0 0 2px #222;width:130px;height:130px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);">
+                <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" width="120" height="120" style="object-fit:cover;width:120px;height:120px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 8px #ff00de,0 0 12px #00eaff;">
             </div>
-        </header>
-        <nav class="interaction-bar">
-            <ul>
-                <li><a href="#objectif">Objectif</a></li>
-                <li><a href="#competences-pro">Compétences Pro</a></li>
-                <li><a href="#competences-perso">Compétences Perso</a></li>
-                <li><a href="#formations">Formations</a></li>
-                <li><a href="#experiences">Expériences</a></li>
-                <li><a href="#sport">Sport</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <h1 style="font-family:'Orbitron',sans-serif;font-size:1.45rem;color:#39ff14;text-shadow:0 0 8px #39ff14,0 0 24px #39ff14;margin:0;">Louis LOGEZ</h1>
+            <h2 style="font-family:'Fira Sans',sans-serif;font-size:1.05rem;color:#eaffd0;text-shadow:0 0 6px #39ff14,0 0 2px #111;margin:0 0 6px 0;font-weight:400;">Futur spécialiste cybersécurité & réseaux</h2>
+        </div>
+        <nav class="sidebar-nav" style="width:100%;margin-top:18px;">
+            <ul style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:0;margin:0;list-style:none;">
+                <li style="width:92%;"><a href="#accueil" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Accueil</a></li>
+                <li style="width:92%;"><a href="#objectif" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Objectif professionnel</a></li>
+                <li style="width:92%;"><a href="#apropos" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">À propos de moi</a></li>
+                <li style="width:92%;"><a href="#parcours" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Parcours</a></li>
+                <li style="width:92%;"><a href="#projets" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Projets</a></li>
+                <li style="width:92%;"><a href="#veilles" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Veilles</a></li>
+                <li style="width:92%;"><a href="#stages" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Stages</a></li>
+                <li style="width:92%;"><a href="#contact" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Contact</a></li>
             </ul>
         </nav>
-        <main>
-            <section class="band" id="objectif">
-                <h2>Objectif professionnel</h2>
-                <div class="band-content">
-                    <p>Intégrer la Marine Nationale après mon BTS pour faire l’école de Maistrance puis me former dans la cybersécurité.</p>
+        <div class="header-links" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 0 0;">
+            <a href="#contact" class="btn-main" style="width:80%;padding:10px 0;text-align:center;font-size:1.08rem;font-family:'Orbitron',sans-serif;border-radius:8px;background:#39ff14;color:#111;box-shadow:0 0 8px #39ff14,0 0 24px #39ff14;margin-bottom:4px;">Me contacter</a>
+            <a href="#parcours" class="btn-secondary" style="width:80%;padding:10px 0;text-align:center;font-size:1.08rem;font-family:'Orbitron',sans-serif;border-radius:8px;background:rgba(57,255,20,0.08);color:#39ff14;border:1.5px solid #39ff14;">Voir mon parcours</a>
+        </div>
+        <div style="width:100%;text-align:center;margin-bottom:18px;margin-top:auto;">
+            <span style="color:#39ff14;font-size:0.95rem;opacity:0.7;">© 2025 Louis LOGEZ - Portfolio</span>
+        </div>
+    </aside>
+    <div style="margin-left:320px;min-height:100vh;position:relative;z-index:20;background:transparent;display:flex;flex-direction:column;width:calc(100vw - 320px);">
+        <main class="main-content" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+            <section class="band accueil-band" id="accueil" style="background:transparent !important;box-shadow:none !important;border:none !important;">
+                <div class="accueil-center">
+                    <h1 class="neon-green">Bienvenue sur mon Portfolio</h1>
                 </div>
             </section>
-            <section class="band" id="competences-pro">
-                <h2>Compétences professionnelles</h2>
-                <div class="band-content">
-                    <h3>Développement informatique</h3>
-                    <ul class="skills-list">
-                        <li>Modélisation MERISE</li>
-                        <li>Base de données (MySQL)</li>
-                        <li>Python</li>
-                        <li>HTML/CSS</li>
-                    </ul>
-                    <h3>Réseau informatique</h3>
-                    <ul class="skills-list">
-                        <li>Linux (Ubuntu, Fedora, Mint)</li>
-                        <li>VirtualBox</li>
-                        <li>Packet Tracer</li>
-                        <li>Cybersécurité (sécurité des systèmes informatiques)</li>
-                    </ul>
+            <section class="band objectif-band" id="objectif" style="width:100vw;min-height:32vh;display:flex;align-items:center;justify-content:center;background:rgba(10,20,10,0.92);box-shadow:0 0 24px #39ff14,0 0 2px #222;border-bottom:2px solid #39ff14;">
+                <div style="width:100%;max-width:700px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 0;">
+                    <h2 style="font-size:2rem;margin-bottom:18px;text-align:center;letter-spacing:2px;color:#39ff14;text-shadow:0 0 8px #39ff14,0 0 24px #39ff14;">Objectif professionnel</h2>
+                    <p style="font-size:1.25rem;text-align:center;line-height:1.6;max-width:600px;margin:0 auto;color:#eaffd0;text-shadow:0 0 6px #39ff14,0 0 2px #111;">Intégrer la Marine Nationale après<br>mon BTS pour faire l’école de<br>Maistrance puis me former dans<br>la cybersécurité.</p>
                 </div>
             </section>
-            <section class="band" id="competences-perso">
-                <h2>Compétences personnelles</h2>
-                <div class="band-content">
-                    <ul class="skills-list">
-                        <li>Rigoureux</li>
-                        <li>Cohésion de groupe dans la réalisation des projets</li>
-                        <li>Sociable</li>
-                        <li>Empathique et à l’écoute</li>
+            <section class="band" id="apropos">
+            <div class="band-content" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;margin:0;gap:0;">
+                <!-- PROFIL -->
+                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
+                    <h2 style="font-size:2.2rem;margin-bottom:18px;text-align:center;letter-spacing:2px;">À propos de moi</h2>
+                    <p style="font-size:1.15rem;text-align:center;line-height:1.5;max-width:900px;margin:0 auto;"><strong>Profil :</strong> Je m’appelle Louis LOGEZ, passionné par la cybersécurité et les réseaux, rigoureux, curieux et persévérant. Je vise une carrière dans la Marine Nationale après mon BTS SIO SISR, avec une spécialisation cybersécurité. J’aime travailler en équipe et j’ai le sens du service.</p>
+                    <ul style="list-style:none;padding:0;margin:24px 0 0 0;text-align:center;font-size:1rem;line-height:1.5;max-width:900px;margin-left:auto;margin-right:auto;">
+                        <li><strong>Qualités :</strong> Rigoureux, curieux, persévérant, esprit d’équipe, sens du service</li>
+                        <li><strong>Centres d’intérêt :</strong> Cybersécurité, réseaux, sport (tennis, basket), nouvelles technologies, Marine Nationale</li>
                     </ul>
                 </div>
-            </section>
-            <section class="band" id="formations">
-                <h2>Formations</h2>
-                <div class="band-content">
-                    <ul class="certif-list">
+                <!-- FORMATIONS -->
+                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
+                    <h3 style="font-size:1.7rem;margin-bottom:16px;text-align:center;letter-spacing:1px;">Formations</h3>
+                    <ul class="certif-list" style="font-size:1.05rem;line-height:1.5;max-width:900px;margin:0 auto;">
+                        <li><strong>BTS SIO option SISR</strong> — Lycée Dick Ukeiwë, Dumbéa (en cours)</li>
                         <li><strong>Baccalauréat général</strong> — Lycée Lapérouse, Nouméa<br>Spécialités : Mathématiques, NSI. Mention Bien</li>
                         <li><strong>Diplôme National du Brevet</strong> — Collège Jean Mariotti, Nouméa<br>Mention Très bien</li>
                     </ul>
                 </div>
-            </section>
-            <section class="band" id="experiences">
-                <h2>Expériences</h2>
-                <div class="band-content">
-                    <div class="project-card">
-                        <h4>Préparation Militaire Marine 2024 (PMM)</h4>
-                        <p>Base navale de la Pointe Chaleix - Nouméa<br>Obtention du Permis côtier et du Certificat restreint de radiotéléphoniste du service mobile maritime (CRR).<br><em>Janvier - Février 2024</em></p>
-                    </div>
-                    <div class="project-card">
-                        <h4>Stage de découverte en milieu professionnel (3ème)</h4>
-                        <p>Geocal - Nouméa<br>Découverte des différents services de l’entreprise : commercial, administratif et technique.<br><em>Juillet 2021</em></p>
-                    </div>
-                    <div class="project-card">
-                        <h4>Certificat de compétences de citoyen de sécurité civile</h4>
-                        <p>Prévention et Secours Civiques (PSC) de niveau 1</p>
+                <!-- EXPERIENCES -->
+                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
+                    <h3 style="font-size:1.7rem;margin-bottom:16px;text-align:center;letter-spacing:1px;">Expériences</h3>
+                    <div class="band-content" style="gap:18px;display:flex;flex-direction:column;align-items:center;max-width:900px;margin:0 auto;">
+                        <div class="project-card" style="width:100%;background:transparent;box-shadow:none;border:none;">
+                            <h4 style="font-size:1.15rem;">Préparation Militaire Marine 2024 (PMM)</h4>
+                            <p style="font-size:1rem;">Base navale de la Pointe Chaleix - Nouméa<br>Obtention du Permis côtier et du Certificat restreint de radiotéléphoniste du service mobile maritime (CRR).<br><em>Janvier - Février 2024</em></p>
+                        </div>
+                        <div class="project-card" style="width:100%;background:transparent;box-shadow:none;border:none;">
+                            <h4 style="font-size:1.15rem;">Stage de découverte en milieu professionnel (3ème)</h4>
+                            <p style="font-size:1rem;">Geocal - Nouméa<br>Découverte des différents services de l’entreprise : commercial, administratif et technique.<br><em>Juillet 2021</em></p>
+                        </div>
+                        <div class="project-card" style="width:100%;background:transparent;box-shadow:none;border:none;">
+                            <h4 style="font-size:1.15rem;">Certificat de compétences de citoyen de sécurité civile</h4>
+                            <p style="font-size:1rem;">Prévention et Secours Civiques (PSC) de niveau 1</p>
+                        </div>
                     </div>
                 </div>
-            </section>
-            <section class="band" id="sport">
-                <h2>Pratiques sportives</h2>
-                <div class="band-content">
-                    <ul class="skills-list">
+                <!-- SPORT -->
+                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
+                    <h3 style="font-size:1.7rem;margin-bottom:16px;text-align:center;letter-spacing:1px;">Pratiques sportives</h3>
+                    <ul class="skills-list" style="font-size:1.05rem;text-align:center;line-height:1.5;max-width:900px;margin:0 auto;">
                         <li>Tennis en club (2015-2023)</li>
                         <li>Basket en club (2024), UNSS au lycée (2022-2024) et loisir</li>
                     </ul>
                 </div>
+            </div>
+        </section>>
+            <section class="band" id="parcours">
+                <h2>Parcours</h2>
+                <div class="band-content">
+                    <p>Mon parcours en quelques mots...</p>
+                </div>
+            </section>
+            <section class="band" id="projets">
+                <h2>Projets</h2>
+                <div class="band-content">
+                    <p>Mes projets personnels et professionnels...</p>
+                </div>
+            </section>
+            <section class="band" id="veilles">
+                <h2>Veilles technologiques</h2>
+                <div class="band-content">
+                    <p>Mes veilles et recherches sur les nouvelles technologies...</p>
+                </div>
+            </section>
+            <section class="band" id="stages">
+                <h2>Stages</h2>
+                <div class="band-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:100vh;">
+                    <div class="project-card" style="width:100%;max-width:900px;background:transparent;box-shadow:none;border:none;">
+                        <h3 style="font-size:1.25rem;margin-bottom:8px;">Stage de découverte en milieu professionnel (3ème)</h3>
+                        <p style="font-size:1.05rem;">Geocal - Nouméa<br>Découverte des différents services de l’entreprise : commercial, administratif et technique.<br><em>Juillet 2021</em></p>
+                    </div>
+                    <div class="project-card" style="width:100%;max-width:900px;background:transparent;box-shadow:none;border:none;">
+                        <h3 style="font-size:1.25rem;margin-bottom:8px;">Stage à venir (BTS SIO SISR)</h3>
+                        <p style="font-size:1.05rem;">Stage prévu en 2025 dans le domaine des réseaux et de la cybersécurité.<br><em>À définir</em></p>
+                    </div>
+                </div>
             </section>
             <section class="band" id="contact">
                 <h2>Contact</h2>
-                <div class="band-content">
-                    <ul class="about-list">
-                        <li><strong>Téléphone :</strong> (+687) 89 16 94</li>
+                <div class="band-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;">
+                    <ul class="about-list" style="text-align:center;">
                         <li><strong>Adresse :</strong> 22 Boulevard Vauban, 98800, Nouméa</li>
+                        <li><strong>Téléphone :</strong> (+687) 89 16 94</li>
                         <li><strong>Email :</strong> louis.logez2006@gmail.com</li>
                     </ul>
-                    <div class="contact-links">
+                    <div class="contact-links" style="display:flex;gap:18px;justify-content:center;">
                         <a href="mailto:louis.logez2006@gmail.com" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" width="28"></a>
                         <a href="https://www.linkedin.com/in/louis-logez-4b2a11362" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="28"></a>
                         <a href="https://github.com/LouisLogez" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="28"></a>
                     </div>
+                    <form class="contact-form" autocomplete="off" style="margin-top:32px;max-width:420px;width:100%;background:rgba(0,0,0,0.2);border-radius:18px;padding:24px 20px;box-shadow:0 0 12px #39ff14,0 0 2px #222;backdrop-filter:blur(2px);display:flex;flex-direction:column;align-items:center;">
+                        <label for="nom" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Nom</label>
+                        <input type="text" id="nom" name="nom" required style="width:100%;margin-bottom:14px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;">
+                        <label for="email" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Email</label>
+                        <input type="email" id="email" name="email" required style="width:100%;margin-bottom:14px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;">
+                        <label for="sujet" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Sujet</label>
+                        <input type="text" id="sujet" name="sujet" required style="width:100%;margin-bottom:14px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;">
+                        <label for="message" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Message</label>
+                        <textarea id="message" name="message" rows="4" required style="width:100%;margin-bottom:18px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;resize:vertical;"></textarea>
+                        <button type="submit" style="width:100%;padding:10px 0;border:none;border-radius:8px;background:#39ff14;color:#111;font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;box-shadow:0 0 8px #39ff14,0 0 24px #39ff14;cursor:pointer;transition:background 0.2s;margin-top:8px;">Envoyer</button>
+                    </form>
                 </div>
             </section>
         </main>
-        <footer>
-            <p>&copy; 2025 Louis LOGEZ - Portfolio Cybersécurité</p>
-        </footer>
     </div>
+</body>
+<script>
+// Navigation : scroll naturel + sidebar onglet actif
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const sections = Array.from(document.querySelectorAll('main .band'));
+
+  // Scroll fluide au clic sur la sidebar
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const hash = this.getAttribute('href');
+      const target = document.querySelector(hash);
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop - 24, // Décalage éventuel
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Surbrillance de l'onglet actif selon la section visible
+  function setActiveLink() {
+    let activeIndex = 0;
+    const scrollY = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    let maxVisible = 0;
+    sections.forEach((section, i) => {
+      const rect = section.getBoundingClientRect();
+      const visible = Math.max(0, Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0));
+      if (visible > maxVisible) {
+        maxVisible = visible;
+        activeIndex = i;
+      }
+    });
+    navLinks.forEach(link => link.classList.remove('active'));
+    navLinks[activeIndex].classList.add('active');
+  }
+  window.addEventListener('scroll', setActiveLink);
+  setActiveLink();
+});
+</script>
 </body>
 </html>
