@@ -7,94 +7,377 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-      /* Matrix plus visible sur l'accueil */
+      /* Matrix background always visible, overlay for readability */
       #matrix-canvas {
-        opacity: 1 !important;
-        filter: none !important;
+        opacity: 0.7 !important;
+        filter: blur(1.5px) brightness(0.8);
         z-index: 1;
         pointer-events: none;
         position: fixed;
         top: 0; left: 0; width: 100vw; height: 100vh;
         background: transparent !important;
       }
-      .accueil-band {
-        min-height: 100vh;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        background: transparent;
-        box-shadow: none;
-        border: none;
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: 2;
+        background: linear-gradient(120deg,rgba(20,30,40,0.82) 0%,rgba(0,0,0,0.72) 100%);
+        pointer-events: none;
       }
-      .accueil-center {
-        width: 100%;
+      /* Styles de la topbar (voir patch précédent) */
+      .main-content {
+        margin-left: 320px;
+        min-height: 100vh;
+        width: calc(100vw - 320px);
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        gap: 48px;
+        z-index: 10;
+        background: transparent;
+        transition: margin-left 0.2s, width 0.2s;
       }
-      .neon-green {
+      .band {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+      .band-content, .card-block {
+        width: 100%;
+        max-width: 900px;
+        margin: 32px auto;
+        background: rgba(20,30,40,0.82);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37), 0 0 24px #00eaff44;
+        padding: 40px 32px;
+        backdrop-filter: blur(6px) saturate(1.1);
+        border: 1.5px solid #00eaff44;
+        position: relative;
+      }
+      .band-content h2, .band-content h3, .band-content h4 {
+        font-family: 'Orbitron',sans-serif;
+        font-size: 2.2rem;
         color: #39ff14;
-        text-shadow: 0 0 8px #39ff14, 0 0 24px #39ff14, 0 0 48px #39ff14;
-        font-family: 'Orbitron', 'Fira Sans', 'Roboto', Arial, sans-serif;
-        font-size: 2.8rem;
+        text-shadow: 0 0 12px #39ff14, 0 0 32px #00eaff;
+        margin-bottom: 18px;
         letter-spacing: 2px;
         text-align: center;
       }
-      @media (max-width: 900px) {
-        .accueil-band { min-height: 80vh; }
-        .neon-green { font-size: 2rem; }
-      }
-      /* Sidebar onglet actif */
-      .sidebar-nav a.active, .sidebar-nav a:focus {
-        color: #39ff14 !important;
-        text-shadow: 0 0 8px #39ff14, 0 0 24px #39ff14;
-        background: rgba(57,255,20,0.08);
-        border-radius: 8px;
-      }
-      .band:not(.accueil-band) {
-        min-height: 100vh;
+      .card-block {
+        margin: 18px 0;
+        padding: 28px 24px;
         display: flex;
-        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        background: rgba(0,234,255,0.10);
+        border-radius: 18px;
+        box-shadow: 0 4px 16px 0 #00eaff33;
+        border: 1.5px solid #00eaff33;
+      }
+      .card-block .date {
+        min-width: 110px;
+        font-size: 1.08rem;
+        color: #ff00de;
+        font-family: 'Fira Sans',sans-serif;
+        font-weight: 600;
+        text-align: right;
+        margin-right: 12px;
+      }
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
         justify-content: center;
+        margin: 24px 0 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .skill-item {
+        display: flex;
         align-items: center;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        padding: 48px 0 48px 0;
-      }
-      .band-content {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-      .band, .band-content, .project-card, .about-list, .skills-list, .certif-list {
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-      .band h2, .band h3, .band h4, .band p, .band li, .band label, .band input, .band textarea, .band button {
+        gap: 10px;
+        background: rgba(57,255,20,0.08);
+        border-radius: 14px;
+        padding: 12px 22px;
+        font-size: 1.13rem;
         color: #eaffd0;
-        text-shadow: 0 0 6px #39ff14, 0 0 2px #111;
+        box-shadow: 0 0 12px #39ff1433, 0 0 8px #00eaff22;
+        font-family: 'Fira Sans',sans-serif;
+        font-weight: 600;
+        transition: transform 0.15s;
+      }
+      .skill-item img {
+        width: 34px; height: 34px; object-fit: contain;
+        filter: drop-shadow(0 0 6px #00eaff);
+      }
+      .skill-item:hover {
+        transform: scale(1.07) rotate(-2deg);
+        box-shadow: 0 0 24px #39ff14, 0 0 16px #00eaff;
+        background: rgba(57,255,20,0.18);
       }
       .contact-form {
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
+        background: rgba(0,234,255,0.10);
+        box-shadow: 0 4px 16px 0 #00eaff33;
+        border-radius: 18px;
+        padding: 32px 24px;
+        border: 1.5px solid #00eaff33;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto;
+        max-width: 420px;
+        width: 100%;
+      }
+      .contact-form label {
+        color: #39ff14;
+        font-family: 'Fira Sans',sans-serif;
+        font-size: 1.08rem;
+        margin-bottom: 2px;
+        align-self: flex-start;
+        transition: color 0.2s;
       }
       .contact-form input, .contact-form textarea {
-        background: rgba(0,0,0,0.25) !important;
-        color: #fff !important;
-        border: 1.5px solid #39ff14 !important;
-        text-shadow: 0 0 4px #39ff14;
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1.5px solid #39ff14;
+        background: rgba(0,0,0,0.7);
+        color: #fff;
+        font-size: 1rem;
+        outline: none;
+        margin-bottom: 10px;
+        font-family: 'Fira Sans',sans-serif;
+        box-shadow: 0 0 6px #39ff1433;
+        transition: border 0.2s, box-shadow 0.2s;
+      }
+      .contact-form input:focus, .contact-form textarea:focus {
+        border: 1.5px solid #00eaff;
+        box-shadow: 0 0 12px #00eaff66;
       }
       .contact-form button {
-        background: #39ff14 !important;
-        color: #111 !important;
-        box-shadow: 0 0 8px #39ff14, 0 0 24px #39ff14;
+        width: 100%;
+        padding: 12px 0;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(90deg,#39ff14,#00eaff);
+        color: #111;
+        font-family: 'Orbitron',sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        box-shadow: 0 0 12px #39ff14, 0 0 24px #00eaff;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background 0.2s;
+      }
+      .footer {
+        width: 100%;
+        text-align: center;
+        margin: 32px 0 12px 0;
+        color: #eaffd0;
+        font-size: 1.08rem;
+        opacity: 0.7;
+        font-family: 'Fira Sans',sans-serif;
+        text-shadow: 0 0 6px #00eaff, 0 0 2px #111;
+        border-top: 1.5px solid #00eaff44;
+        padding-top: 12px;
+        background: rgba(20,30,40,0.82);
+        border-radius: 0 0 24px 24px;
+        box-shadow: 0 0 12px #00eaff22;
+      }
+      /* Timeline modernisée */
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        width: 100%;
+        margin: 32px 0 0 0;
+        position: relative;
+      }
+      .timeline:before {
+        content: '';
+        position: absolute;
+        left: 32px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg,#00eaff 0%,#39ff14 100%);
+        border-radius: 2px;
+        opacity: 0.18;
+      }
+      .timeline-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        background: rgba(0,234,255,0.10);
+        border-radius: 18px;
+        box-shadow: 0 4px 16px 0 #00eaff33;
+        border: 1.5px solid #00eaff33;
+        padding: 22px 28px;
+        position: relative;
+        margin-left: 16px;
+      }
+      .timeline-date {
+        min-width: 90px;
+        font-size: 1.08rem;
+        color: #ff00de;
+        font-family: 'Fira Sans',sans-serif;
+        font-weight: 600;
+        text-align: right;
+        margin-right: 12px;
+        margin-top: 4px;
+      }
+      .timeline-content h3 {
+        font-size: 1.18rem;
+        color: #39ff14;
+        margin: 0 0 4px 0;
+        font-family: 'Orbitron',sans-serif;
+        text-shadow: 0 0 8px #39ff14, 0 0 24px #00eaff;
+      }
+      .timeline-content p {
+        color: #eaffd0;
+        font-size: 1.05rem;
+        margin: 0;
+      }
+      /* Projects modern cards */
+      .projects-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+        margin-top: 18px;
+      }
+      .project-card {
+        background: rgba(20,30,40,0.92);
+        border-radius: 18px;
+        box-shadow: 0 4px 16px 0 #00eaff33, 0 0 12px #39ff1444;
+        border: 1.5px solid #00eaff44;
+        padding: 18px 18px 12px 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        min-width: 180px;
+        max-width: 220px;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .project-card img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 0 8px #00eaff;
+        margin-bottom: 8px;
+      }
+      .project-card h3 {
+        font-size: 1.08rem;
+        color: #39ff14;
+        margin: 0 0 4px 0;
+        font-family: 'Orbitron',sans-serif;
+        text-shadow: 0 0 8px #39ff14, 0 0 24px #00eaff;
+      }
+      .project-card p {
+        color: #eaffd0;
+        font-size: 0.98rem;
+        margin: 0;
+        text-align: center;
+      }
+      .project-card:hover {
+        transform: scale(1.04) rotate(-1deg);
+        box-shadow: 0 0 24px #00eaff, 0 0 16px #39ff14;
+      }
+      /* Contact modern */
+      .contact-form {
+        background: rgba(0,234,255,0.10);
+        box-shadow: 0 4px 16px 0 #00eaff33;
+        border-radius: 18px;
+        padding: 32px 24px;
+        border: 1.5px solid #00eaff33;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto;
+        max-width: 420px;
+        width: 100%;
+      }
+      .contact-form label {
+        color: #39ff14;
+        font-family: 'Fira Sans',sans-serif;
+        font-size: 1.08rem;
+        margin-bottom: 2px;
+        align-self: flex-start;
+        transition: color 0.2s;
+      }
+      .contact-form input, .contact-form textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1.5px solid #39ff14;
+        background: rgba(0,0,0,0.7);
+        color: #fff;
+        font-size: 1rem;
+        outline: none;
+        margin-bottom: 10px;
+        font-family: 'Fira Sans',sans-serif;
+        box-shadow: 0 0 6px #39ff1433;
+        transition: border 0.2s, box-shadow 0.2s;
+      }
+      .contact-form input:focus, .contact-form textarea:focus {
+        border: 1.5px solid #00eaff;
+        box-shadow: 0 0 12px #00eaff66;
+      }
+      .contact-form button {
+        width: 100%;
+        padding: 12px 0;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(90deg,#39ff14,#00eaff);
+        color: #111;
+        font-family: 'Orbitron',sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        box-shadow: 0 0 12px #39ff14, 0 0 24px #00eaff;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background 0.2s;
+      }
+      .contact-links {
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        margin-top: 18px;
+      }
+      .contact-link img {
+        width: 32px;
+        height: 32px;
+        filter: drop-shadow(0 0 6px #00eaff);
+        border-radius: 8px;
+        background: #111;
+        padding: 2px;
+        transition: box-shadow 0.2s;
+      }
+      .contact-link img:hover {
+        box-shadow: 0 0 16px #39ff14, 0 0 24px #00eaff;
+      }
+      @media (max-width: 1100px) {
+        .main-content {
+          margin-top: 84px;
+          width: 100vw !important;
+        }
+      }
+      @media (max-width: 700px) {
+        .band-content, .card-block { padding: 18px 4vw; }
+        .main-content {
+          margin-top: 70px;
+          width: 100vw !important;
+        }
       }
     </style>
 
@@ -104,162 +387,180 @@
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
-    <aside class="sidebar-profile" style="position:fixed;top:0;left:0;height:100vh;width:320px;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(255,0,222,0.82) 0%,rgba(0,234,255,0.82) 100%);backdrop-filter:blur(2px);box-shadow:0 0 32px #ff00de,0 0 24px #00eaff,0 0 2px #222;border-right:3px solid #00eaff;border-left:3px solid #ff00de;border-radius:0 24px 24px 0;">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:32px;">
-            <div class="profile-pic" style="border-radius:50%;box-shadow:0 0 16px #ff00de,0 0 12px #00eaff,0 0 2px #222;width:130px;height:130px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);">
-                <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" width="120" height="120" style="object-fit:cover;width:120px;height:120px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 8px #ff00de,0 0 12px #00eaff;">
-            </div>
-            <h1 style="font-family:'Orbitron',sans-serif;font-size:1.45rem;color:#39ff14;text-shadow:0 0 8px #39ff14,0 0 24px #39ff14;margin:0;">Louis LOGEZ</h1>
-            <h2 style="font-family:'Fira Sans',sans-serif;font-size:1.05rem;color:#eaffd0;text-shadow:0 0 6px #39ff14,0 0 2px #111;margin:0 0 6px 0;font-weight:400;">Futur spécialiste cybersécurité & réseaux</h2>
+    <!-- Topbar moderne -->
+    <header class="topbar-profile">
+      <div class="topbar-inner">
+        <div class="topbar-left">
+          <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" class="topbar-avatar">
+          <div class="topbar-identity">
+            <span class="topbar-name">Louis LOGEZ</span>
+            <span class="topbar-title">Cybersécurité & Réseaux</span>
+          </div>
         </div>
-        <nav class="sidebar-nav" style="width:100%;margin-top:18px;">
-            <ul style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:0;margin:0;list-style:none;">
-                <li style="width:92%;"><a href="#accueil" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Accueil</a></li>
-                <li style="width:92%;"><a href="#objectif" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Objectif professionnel</a></li>
-                <li style="width:92%;"><a href="#apropos" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">À propos de moi</a></li>
-                <li style="width:92%;"><a href="#parcours" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Parcours</a></li>
-                <li style="width:92%;"><a href="#projets" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Projets</a></li>
-                <li style="width:92%;"><a href="#veilles" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Veilles</a></li>
-                <li style="width:92%;"><a href="#stages" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Stages</a></li>
-                <li style="width:92%;"><a href="#contact" style="display:block;width:100%;padding:12px 0;text-align:center;font-size:1.13rem;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;border-radius:10px;transition:background 0.2s;background:rgba(57,255,20,0.04);color:#39ff14;">Contact</a></li>
-            </ul>
+        <nav class="topbar-nav">
+          <ul>
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#profil">Profil</a></li>
+            <li><a href="#bts-sio">BTS SIO</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#parcours">Parcours</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </nav>
-        <div class="header-links" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 0 0;">
-            <a href="#contact" class="btn-main" style="width:80%;padding:10px 0;text-align:center;font-size:1.08rem;font-family:'Orbitron',sans-serif;border-radius:8px;background:#39ff14;color:#111;box-shadow:0 0 8px #39ff14,0 0 24px #39ff14;margin-bottom:4px;">Me contacter</a>
-            <a href="#parcours" class="btn-secondary" style="width:80%;padding:10px 0;text-align:center;font-size:1.08rem;font-family:'Orbitron',sans-serif;border-radius:8px;background:rgba(57,255,20,0.08);color:#39ff14;border:1.5px solid #39ff14;">Voir mon parcours</a>
+        <div class="topbar-actions">
+          <a href="#contact" class="btn-main">Me contacter</a>
         </div>
-        <div style="width:100%;text-align:center;margin-bottom:18px;margin-top:auto;">
-            <span style="color:#39ff14;font-size:0.95rem;opacity:0.7;">© 2025 Louis LOGEZ - Portfolio</span>
+      </div>
+    </header>
+    <div class="main-content">
+      <!-- Hero Section -->
+      <section class="band hero-band" id="hero">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;">
+          <img src="img/PDP.jfif" alt="Photo de profil Louis LOGEZ" style="width:120px;height:120px;border-radius:50%;box-shadow:0 0 24px #00eaff,0 0 18px #39ff14,0 0 2px #222;border:3px solid #fff;">
+          <h1 style="font-size:2.3rem;color:#39ff14;text-shadow:0 0 12px #39ff14,0 0 32px #00eaff;">Louis LOGEZ</h1>
+          <h2 style="font-size:1.25rem;color:#eaffd0;text-shadow:0 0 6px #00eaff,0 0 2px #111;">Étudiant BTS SIO SISR & cybersécurité</h2>
+          <a href="#contact" class="btn-main" style="margin-top:12px;">Me contacter</a>
         </div>
-    </aside>
-    <div style="margin-left:320px;min-height:100vh;position:relative;z-index:20;background:transparent;display:flex;flex-direction:column;width:calc(100vw - 320px);">
-        <main class="main-content" style="width:100%;display:flex;flex-direction:column;align-items:center;">
-            <section class="band accueil-band" id="accueil" style="background:transparent !important;box-shadow:none !important;border:none !important;">
-                <div class="accueil-center">
-                    <h1 class="neon-green">Bienvenue sur mon Portfolio</h1>
-                </div>
-            </section>
-            <section class="band objectif-band" id="objectif" style="width:100vw;min-height:32vh;display:flex;align-items:center;justify-content:center;background:rgba(10,20,10,0.92);box-shadow:0 0 24px #39ff14,0 0 2px #222;border-bottom:2px solid #39ff14;">
-                <div style="width:100%;max-width:700px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 0;">
-                    <h2 style="font-size:2rem;margin-bottom:18px;text-align:center;letter-spacing:2px;color:#39ff14;text-shadow:0 0 8px #39ff14,0 0 24px #39ff14;">Objectif professionnel</h2>
-                    <p style="font-size:1.25rem;text-align:center;line-height:1.6;max-width:600px;margin:0 auto;color:#eaffd0;text-shadow:0 0 6px #39ff14,0 0 2px #111;">Intégrer la Marine Nationale après<br>mon BTS pour faire l’école de<br>Maistrance puis me former dans<br>la cybersécurité.</p>
-                </div>
-            </section>
-            <section class="band" id="apropos">
-            <div class="band-content" style="width:100vw;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;margin:0;gap:0;">
-                <!-- PROFIL -->
-                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
-                    <h2 style="font-size:2.2rem;margin-bottom:18px;text-align:center;letter-spacing:2px;">À propos de moi</h2>
-                    <p style="font-size:1.15rem;text-align:center;line-height:1.5;max-width:900px;margin:0 auto;"><strong>Profil :</strong> Je m’appelle Louis LOGEZ, passionné par la cybersécurité et les réseaux, rigoureux, curieux et persévérant. Je vise une carrière dans la Marine Nationale après mon BTS SIO SISR, avec une spécialisation cybersécurité. J’aime travailler en équipe et j’ai le sens du service.</p>
-                    <ul style="list-style:none;padding:0;margin:24px 0 0 0;text-align:center;font-size:1rem;line-height:1.5;max-width:900px;margin-left:auto;margin-right:auto;">
-                        <li><strong>Qualités :</strong> Rigoureux, curieux, persévérant, esprit d’équipe, sens du service</li>
-                        <li><strong>Centres d’intérêt :</strong> Cybersécurité, réseaux, sport (tennis, basket), nouvelles technologies, Marine Nationale</li>
-                    </ul>
-                </div>
-                <!-- FORMATIONS -->
-                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
-                    <h3 style="font-size:1.7rem;margin-bottom:16px;text-align:center;letter-spacing:1px;">Formations</h3>
-                    <ul class="certif-list" style="font-size:1.05rem;line-height:1.5;max-width:900px;margin:0 auto;">
-                        <li><strong>BTS SIO option SISR</strong> — Lycée Dick Ukeiwë, Dumbéa (en cours)</li>
-                        <li><strong>Baccalauréat général</strong> — Lycée Lapérouse, Nouméa<br>Spécialités : Mathématiques, NSI. Mention Bien</li>
-                        <li><strong>Diplôme National du Brevet</strong> — Collège Jean Mariotti, Nouméa<br>Mention Très bien</li>
-                    </ul>
-                </div>
-                <!-- EXPERIENCES -->
-                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
-                    <h3 style="font-size:1.7rem;margin-bottom:16px;text-align:center;letter-spacing:1px;">Expériences</h3>
-                    <div class="band-content" style="gap:18px;display:flex;flex-direction:column;align-items:center;max-width:900px;margin:0 auto;">
-                        <div class="project-card" style="width:100%;background:transparent;box-shadow:none;border:none;">
-                            <h4 style="font-size:1.15rem;">Préparation Militaire Marine 2024 (PMM)</h4>
-                            <p style="font-size:1rem;">Base navale de la Pointe Chaleix - Nouméa<br>Obtention du Permis côtier et du Certificat restreint de radiotéléphoniste du service mobile maritime (CRR).<br><em>Janvier - Février 2024</em></p>
-                        </div>
-                        <div class="project-card" style="width:100%;background:transparent;box-shadow:none;border:none;">
-                            <h4 style="font-size:1.15rem;">Stage de découverte en milieu professionnel (3ème)</h4>
-                            <p style="font-size:1rem;">Geocal - Nouméa<br>Découverte des différents services de l’entreprise : commercial, administratif et technique.<br><em>Juillet 2021</em></p>
-                        </div>
-                        <div class="project-card" style="width:100%;background:transparent;box-shadow:none;border:none;">
-                            <h4 style="font-size:1.15rem;">Certificat de compétences de citoyen de sécurité civile</h4>
-                            <p style="font-size:1rem;">Prévention et Secours Civiques (PSC) de niveau 1</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- SPORT -->
-                <div style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;">
-                    <h3 style="font-size:1.7rem;margin-bottom:16px;text-align:center;letter-spacing:1px;">Pratiques sportives</h3>
-                    <ul class="skills-list" style="font-size:1.05rem;text-align:center;line-height:1.5;max-width:900px;margin:0 auto;">
-                        <li>Tennis en club (2015-2023)</li>
-                        <li>Basket en club (2024), UNSS au lycée (2022-2024) et loisir</li>
-                    </ul>
-                </div>
+      </section>
+      <!-- Présentation / Profil -->
+      <section class="band" id="profil">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <h2>Présentation</h2>
+          <p style="font-size:1.15rem;color:#eaffd0;text-align:center;max-width:700px;">Je m’appelle Louis LOGEZ, passionné par la cybersécurité et les réseaux, rigoureux, curieux et persévérant. Je vise une carrière dans la Marine Nationale après mon BTS SIO SISR, avec une spécialisation cybersécurité. J’aime travailler en équipe et j’ai le sens du service.</p>
+        </div>
+      </section>
+      <!-- Section BTS SIO -->
+      <section class="band" id="bts-sio">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <h2>Présentation du BTS SIO</h2>
+          <p style="font-size:1.13rem;color:#eaffd0;text-align:center;max-width:700px;">Le BTS SIO (Services Informatiques aux Organisations) propose deux spécialités complémentaires : <span style="color:#39ff14;font-weight:600;">SLAM</span> (développement) et <span style="color:#00eaff;font-weight:600;">SISR</span> (réseaux/systèmes).</p>
+          <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;width:100%;">
+            <!-- Bloc SLAM -->
+            <div class="card-block" style="flex:1 1 320px;max-width:400px;background:rgba(57,255,20,0.10);border:2px solid #39ff14;box-shadow:0 0 18px #39ff14,0 0 8px #00eaff33;border-radius:18px;display:flex;flex-direction:column;align-items:center;">
+              <img src="https://cdn-icons-png.flaticon.com/512/2721/2721296.png" alt="Icône SLAM" style="width:54px;height:54px;margin-bottom:10px;filter:drop-shadow(0 0 8px #39ff14);">
+              <h3 style="color:#39ff14;font-family:'Orbitron',sans-serif;font-size:1.35rem;text-shadow:0 0 8px #39ff14,0 0 24px #39ff14;margin-bottom:8px;">Option SLAM</h3>
+              <ul style="color:#eaffd0;font-size:1.02rem;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
+                <li>Programmation (Java, PHP, Python...)</li>
+                <li>Développement web & mobile</li>
+                <li>Gestion de bases de données</li>
+                <li>Analyse des besoins clients</li>
+                <li>Maintenance applicative</li>
+              </ul>
             </div>
-        </section>>
-            <section class="band" id="parcours">
-                <h2>Parcours</h2>
-                <div class="band-content">
-                    <p>Mon parcours en quelques mots...</p>
-                </div>
-            </section>
-            <section class="band" id="projets">
-                <h2>Projets</h2>
-                <div class="band-content">
-                    <p>Mes projets personnels et professionnels...</p>
-                </div>
-            </section>
-            <section class="band" id="veilles">
-                <h2>Veilles technologiques</h2>
-                <div class="band-content">
-                    <p>Mes veilles et recherches sur les nouvelles technologies...</p>
-                </div>
-            </section>
-            <section class="band" id="stages">
-                <h2>Stages</h2>
-                <div class="band-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:100vh;">
-                    <div class="project-card" style="width:100%;max-width:900px;background:transparent;box-shadow:none;border:none;">
-                        <h3 style="font-size:1.25rem;margin-bottom:8px;">Stage de découverte en milieu professionnel (3ème)</h3>
-                        <p style="font-size:1.05rem;">Geocal - Nouméa<br>Découverte des différents services de l’entreprise : commercial, administratif et technique.<br><em>Juillet 2021</em></p>
-                    </div>
-                    <div class="project-card" style="width:100%;max-width:900px;background:transparent;box-shadow:none;border:none;">
-                        <h3 style="font-size:1.25rem;margin-bottom:8px;">Stage à venir (BTS SIO SISR)</h3>
-                        <p style="font-size:1.05rem;">Stage prévu en 2025 dans le domaine des réseaux et de la cybersécurité.<br><em>À définir</em></p>
-                    </div>
-                </div>
-            </section>
-            <section class="band" id="contact">
-                <h2>Contact</h2>
-                <div class="band-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;">
-                    <ul class="about-list" style="text-align:center;">
-                        <li><strong>Adresse :</strong> 22 Boulevard Vauban, 98800, Nouméa</li>
-                        <li><strong>Téléphone :</strong> (+687) 89 16 94</li>
-                        <li><strong>Email :</strong> louis.logez2006@gmail.com</li>
-                    </ul>
-                    <div class="contact-links" style="display:flex;gap:18px;justify-content:center;">
-                        <a href="mailto:louis.logez2006@gmail.com" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" width="28"></a>
-                        <a href="https://www.linkedin.com/in/louis-logez-4b2a11362" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="28"></a>
-                        <a href="https://github.com/LouisLogez" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="28"></a>
-                    </div>
-                    <form class="contact-form" autocomplete="off" style="margin-top:32px;max-width:420px;width:100%;background:rgba(0,0,0,0.2);border-radius:18px;padding:24px 20px;box-shadow:0 0 12px #39ff14,0 0 2px #222;backdrop-filter:blur(2px);display:flex;flex-direction:column;align-items:center;">
-                        <label for="nom" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Nom</label>
-                        <input type="text" id="nom" name="nom" required style="width:100%;margin-bottom:14px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;">
-                        <label for="email" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Email</label>
-                        <input type="email" id="email" name="email" required style="width:100%;margin-bottom:14px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;">
-                        <label for="sujet" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Sujet</label>
-                        <input type="text" id="sujet" name="sujet" required style="width:100%;margin-bottom:14px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;">
-                        <label for="message" style="color:#39ff14;font-family:'Fira Sans',sans-serif;align-self:flex-start;">Message</label>
-                        <textarea id="message" name="message" rows="4" required style="width:100%;margin-bottom:18px;padding:8px 12px;border-radius:8px;border:1.5px solid #39ff14;background:rgba(0,0,0,0.7);color:#fff;font-size:1rem;outline:none;resize:vertical;"></textarea>
-                        <button type="submit" style="width:100%;padding:10px 0;border:none;border-radius:8px;background:#39ff14;color:#111;font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;box-shadow:0 0 8px #39ff14,0 0 24px #39ff14;cursor:pointer;transition:background 0.2s;margin-top:8px;">Envoyer</button>
-                    </form>
-                </div>
-            </section>
-        </main>
+            <!-- Bloc SISR -->
+            <div class="card-block" style="flex:1 1 320px;max-width:400px;background:rgba(0,234,255,0.10);border:2px solid #00eaff;box-shadow:0 0 18px #00eaff,0 0 8px #39ff1433;border-radius:18px;display:flex;flex-direction:column;align-items:center;">
+              <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Icône SISR" style="width:54px;height:54px;margin-bottom:10px;filter:drop-shadow(0 0 8px #00eaff);">
+              <h3 style="color:#00eaff;font-family:'Orbitron',sans-serif;font-size:1.35rem;text-shadow:0 0 8px #00eaff,0 0 24px #00eaff;margin-bottom:8px;">Option SISR</h3>
+              <ul style="color:#eaffd0;font-size:1.02rem;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;">
+                <li>Administration systèmes & réseaux</li>
+                <li>Sécurité informatique</li>
+                <li>Virtualisation, cloud</li>
+                <li>Support utilisateurs</li>
+                <li>Supervision et maintenance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section Compétences (à compléter) -->
+      <section class="band" id="competences">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <h2>Compétences</h2>
+          <div class="skills-list" style="justify-content:center;flex-wrap:wrap;gap:18px;">
+            <!-- Exemples, à compléter avec tes vraies compétences -->
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/1/php.png" alt="PHP"><span>PHP</span></div>
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/2/javascript.png" alt="JavaScript"><span>JavaScript</span></div>
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/58/python-svgrepo-com.png" alt="Python"><span>Python</span></div>
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/6/linux.png" alt="Linux"><span>Linux</span></div>
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/30/git.png" alt="Git"><span>Git</span></div>
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/71/mysql-logo.svg" alt="MySQL"><span>MySQL</span></div>
+            <div class="skill-item"><img src="https://tamdaz.fr/storage/7/react.png" alt="React"><span>React</span></div>
+            <!-- Ajoute d'autres compétences ici -->
+          </div>
+        </div>
+      </section>
+      <!-- Section Parcours/Expériences/Formations (timeline/cards) -->
+      <section class="band" id="parcours">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <h2>Parcours</h2>
+          <div class="timeline">
+            <!-- Exemple de card formation -->
+            <div class="timeline-card">
+              <div class="timeline-date">2023-2025</div>
+              <div class="timeline-content">
+                <h3>BTS SIO SISR</h3>
+                <p>Lycée Dick Ukeiwë, Dumbéa (en cours)</p>
+              </div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-date">2020-2023</div>
+              <div class="timeline-content">
+                <h3>Baccalauréat général</h3>
+                <p>Lycée Lapérouse, Nouméa<br>Spécialités : Mathématiques, NSI. Mention Bien</p>
+              </div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-date">2016-2020</div>
+              <div class="timeline-content">
+                <h3>Diplôme National du Brevet</h3>
+                <p>Collège Jean Mariotti, Nouméa<br>Mention Très bien</p>
+              </div>
+            </div>
+            <!-- Ajoute d'autres expériences ici -->
+          </div>
+        </div>
+      </section>
+      <!-- Section Projets (miniatures, cards) -->
+      <section class="band" id="projets">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <h2>Projets</h2>
+          <div class="projects-list" style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+            <!-- Exemple de projet -->
+            <div class="project-card">
+              <img src="https://tamdaz.fr/storage/97/Miniature-V%C3%A9lib'.png" alt="Projet Vélib" style="width:120px;height:80px;object-fit:cover;border-radius:12px;box-shadow:0 0 8px #00eaff;">
+              <div>
+                <h3>Vélib</h3>
+                <p>Application de gestion de vélos en libre-service.</p>
+              </div>
+            </div>
+            <!-- Ajoute tes projets ici -->
+          </div>
+        </div>
+      </section>
+      <!-- Section Contact -->
+      <section class="band" id="contact">
+        <div class="band-content" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <h2>Contact</h2>
+          <form class="contact-form" autocomplete="off">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="sujet">Sujet</label>
+            <input type="text" id="sujet" name="sujet" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <button type="submit">Envoyer</button>
+          </form>
+          <div class="contact-links">
+            <a href="mailto:louis.logez2006@gmail.com" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" width="28"></a>
+            <a href="https://www.linkedin.com/in/louis-logez-4b2a11362" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="28"></a>
+            <a href="https://github.com/LouisLogez" target="_blank" class="contact-link"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" width="28"></a>
+          </div>
+        </div>
+      </section>
+    </div>
+        <!-- Nettoyage : sections dupliquées supprimées -->
     </div>
 </body>
 <script>
-// Navigation : scroll naturel + sidebar onglet actif
+// Navigation : scroll naturel + topbar onglet actif
 document.addEventListener('DOMContentLoaded', function() {
-  const navLinks = document.querySelectorAll('.sidebar-nav a');
-  const sections = Array.from(document.querySelectorAll('main .band'));
+  const navLinks = document.querySelectorAll('.topbar-nav a');
+  const sections = Array.from(document.querySelectorAll('.main-content .band'));
 
-  // Scroll fluide au clic sur la sidebar
+  // Scroll fluide au clic sur la topbar
   navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -267,7 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const target = document.querySelector(hash);
       if (target) {
         window.scrollTo({
-          top: target.offsetTop - 24, // Décalage éventuel
+          top: target.offsetTop - 80, // Décalage topbar
           behavior: 'smooth'
         });
       }
