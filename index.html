@@ -175,6 +175,14 @@
       line-height: 1.15;
       margin-bottom: 18px;
     }
+    .hero-name, .hero-intro, .hero-welcome {
+      color: #DA730B !important;
+      text-shadow: 0 0 18px #DA730B, 0 0 32px #fff !important;
+    }
+    .hero-text h1 {
+      color: #DA730B !important;
+      text-shadow: 0 0 18px #DA730B, 0 0 32px #fff !important;
+    }
     .hero-name {
       font-size: 3.1rem;
       color: #00eaff;
@@ -466,7 +474,7 @@
       height: 100vh;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.7;
+      opacity: 0.85;
     }
     .hero-matrix-full, .hero-text {
       position: relative;
@@ -506,9 +514,8 @@
       <div class="hero-matrix-full">
         <div class="hero-text">
           <h1>
-            <span class="hero-name">Bonjour, moi c'est Louis LOGEZ</span><br><span style="font-size:2.1rem;">👋</span></span><br>
-            <span class="hero-intro">bienvenu sur mon <span class="hero-name">portfolio</span> <span style="font-size:2.1rem;">👋</span></span><br>
-            
+            <span class="hero-name" style="color:#DA730B;text-shadow:0 0 18px #DA730B,0 0 32px #fff;">Bonjour, moi c'est Louis LOGEZ</span>
+            <span class="hero-intro" style="color:#DA730B;text-shadow:0 0 12px #DA730B,0 0 24px #fff;">Bienvenu sur mon <span class="hero-name" style="color:#DA730B;text-shadow:0 0 18px #DA730B,0 0 32px #fff;">Portfolio</span></span>
           </h1>
         </div>
       </div>
@@ -650,14 +657,14 @@
       const columns = Math.floor(w / fontSize);
       const drops = Array(columns).fill(1);
       function drawMatrix() {
-        ctx.fillStyle = 'rgba(20,30,40,0.18)';
+        ctx.fillStyle = 'rgba(20,30,40,0.32)'; // fond Matrix plus opaque
         ctx.fillRect(0, 0, w, h);
         ctx.font = fontSize + 'px Orbitron, monospace';
         for (let i = 0; i < columns; i++) {
           const text = letters[Math.floor(Math.random() * letters.length)];
-          ctx.fillStyle = '#39ff14';
-          ctx.shadowColor = '#00eaff';
-          ctx.shadowBlur = 8;
+          ctx.fillStyle = '#DA730B'; // orange Matrix
+          ctx.shadowColor = '#DA730B';
+          ctx.shadowBlur = 3; // ombre douce
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
           if (drops[i] * fontSize > h && Math.random() > 0.975) {
             drops[i] = 0;
